@@ -1,0 +1,17 @@
+# cache
+*.log
+.DS_STORE
+tmp
+
+# editor
+.idea
+.vscode
+
+#  module
+node_modules
+package-lock.json
+
+# other
+scripts/
+babel.config.js
+.gitignore

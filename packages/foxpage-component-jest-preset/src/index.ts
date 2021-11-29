@@ -1,0 +1,1 @@
+export { createJestConfig } from './config';

@@ -1,0 +1,39 @@
+{
+  "name": "@foxpage/foxpage-component-storybook-addon",
+  "version": "0.2.6",
+  "description": "foxpage component storybook addon",
+  "keywords": [
+    "foxpage",
+    "component",
+    "storybook",
+    "addon"
+  ],
+  "author": {
+    "name": "melody-yangjie",
+    "email": "mryangjiekilitor@gmail.com",
+    "url": "https://github.com/melodyJie"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "build:debug": "tsc --skipLibCheck --sourceMap --watch",
+    "prebuild": "rm -rf ./lib",
+    "prepublishOnly": "yarn build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "dependencies": {
+    "@foxpage/foxpage-component-context": "^0.1.7",
+    "@foxpage/foxpage-types": "^0.2.12"
+  },
+  "files": [
+    "lib/**"
+  ]
+}

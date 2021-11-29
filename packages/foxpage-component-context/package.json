@@ -1,0 +1,57 @@
+{
+  "name": "@foxpage/foxpage-component-context",
+  "version": "0.1.7",
+  "description": "foxpage component context",
+  "keywords": [
+    "foxpage",
+    "component",
+    "context"
+  ],
+  "author": {
+    "name": "melody-yangjie",
+    "email": "mryangjiekilitor@gmail.com",
+    "url": "https://github.com/melodyJie"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "prebuild": "yarn clean && yarn build:ts && cp -R ./lib ./es",
+    "build": "yarn build:lib && yarn build:es && yarn build:umd",
+    "build:lib": "babel src --extensions .ts,.tsx --out-dir lib",
+    "build:es": "ES=1 babel src --extensions .ts,.tsx --out-dir es",
+    "build:umd": "NODE_ENV=production webpack --config webpack/webpack.config.js",
+    "build:ts": "tsc --outDir ./lib --emitDeclarationOnly",
+    "build:debug": "yarn build:es --watch",
+    "analyze": "ANALYZE=1 webpack --config config/webpack.config.js",
+    "clean": "rm -rf lib dist es",
+    "prepublishOnly": "yarn build",
+    "test": "echo \"Error: no test specified\""
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.0",
+    "@babel/core": "^7.8.0",
+    "@babel/preset-env": "^7.8.0",
+    "@babel/preset-react": "^7.8.0",
+    "@babel/preset-typescript": "^7.8.0",
+    "@types/react": "^16.8.19",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-transform-define": "^2.0.0",
+    "eventemitter3": "^4.0.7",
+    "typescript": "^4.3.3",
+    "webpack": "^4.41.5",
+    "webpack-bundle-analyzer": "^3.5.0"
+  },
+  "files": [
+    "lib/**",
+    "es/**",
+    "dist/**"
+  ]
+}

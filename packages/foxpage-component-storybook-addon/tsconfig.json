@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "rootDirs": ["./src"],
+    "outDir": "./lib",
+    "skipLibCheck": true,
+    "target": "ES6",
+    "paths": {
+      "*": ["typings/*"]
+    }
+  },
+  "include": [
+    "src/*",
+    "src/**/*",
+  ]
+}

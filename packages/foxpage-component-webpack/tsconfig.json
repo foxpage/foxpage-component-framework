@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "alwaysStrict": false,
+    "noImplicitUseStrict": true,
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "target": "es2017",
+    "lib": [
+      "esnext",
+      "es7",
+      "dom"
+    ]
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

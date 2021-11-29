@@ -1,0 +1,16 @@
+# cache
+.DS_Store
+*~
+.cache
+
+# packages
+node_modules/
+package-lock.json
+
+# log
+log/
+*.log
+
+# other
+typings/
+tsconfig.json

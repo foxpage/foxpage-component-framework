@@ -1,0 +1,92 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "boot": "lerna bootstrap",
+    "start:editor": "start-storybook --port 49521",
+    "release:v": "lerna version",
+    "release:p": "yarn boot && lerna publish from-git",
+    "release": "yarn release:v && yarn release:p",
+    "commit": "git-cz",
+    "lint": "eslint --cache --cache-location=.cache/eslint --ext .ts,.tsx,.js,.jsx --report-unused-disable-directives packages/",
+    "lint:fix": "yarn lint -- --fix",
+    "test": "jest"
+  },
+  "author": {
+    "name": "melody-yangjie",
+    "email": "mryangjiekilitor@gmail.com",
+    "url": "https://github.com/melodyJie"
+  },
+  "license": "MIT",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint:fix",
+      "git add"
+    ],
+    "*.ts": [
+      "npm run lint:fix",
+      "git add"
+    ],
+    "*.tsx": [
+      "npm run lint:fix",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "lerna": "^4.0.0",
+    "lodash": "^4.17.21",
+    "typescript": "^4.3.2"
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "examples",
+    "dist",
+    "lib",
+    "es",
+    "config",
+    "babel.config.js",
+    "jest.config.js",
+    "commitlint.config.js",
+    "*.js"
+  ],
+  "devDependencies": {
+    "@commitlint/config-angular": "^8.1.0",
+    "@types/jest": "^26.0.0",
+    "@types/lodash": "^4.14.170",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
+    "babel-eslint": "^10.1.0",
+    "commitizen": "^3.1.0",
+    "commitlint": "^8.1.0",
+    "eslint": "^7.28.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-jsx-a11y": "^6.2.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "express": "^4.17.1",
+    "git-cz": "^4.7.6",
+    "husky": "^4.3.8",
+    "jest": "^26.4.2",
+    "lint-staged": "^9.2.5",
+    "prettier": "^2.3.1",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "standard-version": "^9.3.0",
+    "ts-jest": "^26.3.0"
+  }
+}

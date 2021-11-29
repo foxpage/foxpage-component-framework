@@ -1,0 +1,57 @@
+{
+  "name": "@foxpage/foxpage-component-jest-preset",
+  "version": "0.1.7",
+  "description": "foxpage component jest preset",
+  "keywords": [
+    "foxpage",
+    "component",
+    "jest",
+    "preset"
+  ],
+  "author": {
+    "name": "melody-yangjie",
+    "email": "mryangjiekilitor@gmail.com",
+    "url": "https://github.com/melodyJie"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "build:debug": "tsc --skipLibCheck --sourceMap --watch",
+    "prebuild": "rm -rf ./lib",
+    "prepublishOnly": "yarn build"
+  },
+  "peerDependencies": {
+    "@types/jest": "^26.0.24",
+    "jest": "^26.4.2"
+  },
+  "dependencies": {
+    "@babel/core": "^7.8.0",
+    "@foxpage/foxpage-component-shared": "^0.1.10",
+    "@jest/types": "^26.0.0",
+    "@types/enzyme": "^3.10.3",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/faker": "^4.1.0",
+    "@types/power-assert": "^1.5.4",
+    "babel-jest": "^26.0.0",
+    "camelcase": "^6.0.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.0",
+    "faker": "^4.1.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest-environment-enzyme": "^7.1.0",
+    "jest-enzyme": "^7.1.0",
+    "jest-html-reporter": "^2.8.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  },
+  "files": [
+    "lib/**",
+    "jest-preset.js"
+  ]
+}

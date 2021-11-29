@@ -1,0 +1,26 @@
+.jsoneditor-react-container {
+  width: 100%;
+  height: 100%;
+}
+.jsoneditor-poweredBy {
+  display: none;
+}
+.jsoneditor-format,
+.jsoneditor-compact,
+.jsoneditor-repair{
+  filter: invert(.6);
+}
+.jsoneditor-undo,
+.jsoneditor-redo {
+  display: none;
+}
+.jsoneditor-repair{
+  filter: invert(.6);
+}
+div.jsoneditor-menu{
+  background-color: #ebebeb;
+  border-bottom: #c9c9c9;
+}
+div.jsoneditor{
+  border-color: #c9c9c9;
+}

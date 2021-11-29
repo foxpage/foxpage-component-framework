@@ -1,0 +1,45 @@
+{
+  "name": "@foxpage/foxpage-component-shared",
+  "version": "0.1.10",
+  "description": "foxpage component shared ",
+  "keywords": [
+    "foxpage",
+    "component",
+    "shared"
+  ],
+  "author": {
+    "name": "melody-yangjie",
+    "email": "mryangjiekilitor@gmail.com",
+    "url": "https://github.com/melodyJie"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "build:debug": "tsc --skipLibCheck --sourceMap --watch",
+    "prebuild": "rm -rf ./lib",
+    "prepublishOnly": "yarn build",
+    "test": "echo \"Error: no test specified\""
+  },
+  "dependencies": {
+    "@types/debug": "^4.1.4",
+    "@types/fs-extra": "^9.0.1",
+    "@types/json5": "0.0.30",
+    "@types/node": "^12.0.2",
+    "chalk": "^4.1.0",
+    "debug": "^4.1.1",
+    "fs-extra": "^9.1.0",
+    "json5": "^2.1.3",
+    "package-json-type": " ^1.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.3"
+  },
+  "files": [
+    "lib/**"
+  ]
+}

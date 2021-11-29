@@ -1,0 +1,27 @@
+# cache
+.DS_Store
+*~
+.cache
+
+# packages
+node_modules/
+yarn.lock
+package-lock.json
+
+# editor
+.idea/
+.vscode/
+*.code-workspace
+
+# log
+log/
+*.log
+
+# compiler target
+dist/
+lib/
+es/
+public/
+# other
+test/coverage
+__*.*

@@ -1,0 +1,73 @@
+{
+  "name": "@foxpage/foxpage-component-webpack",
+  "version": "0.1.21",
+  "description": "foxpage component webpack configs",
+  "keywords": [
+    "foxpage",
+    "component",
+    "webpack"
+  ],
+  "author": {
+    "name": "melody-yangjie",
+    "email": "mryangjiekilitor@gmail.com",
+    "url": "https://github.com/melodyJie"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "build:debug": "tsc --skipLibCheck --sourceMap --watch",
+    "prebuild": "rm -rf ./lib",
+    "prepublishOnly": "yarn build",
+    "test": "echo \"Error: no test specified\""
+  },
+  "dependencies": {
+    "@foxpage/foxpage-component-shared": "^0.1.10",
+    "@soda/friendly-errors-webpack-plugin": "^1.7.1",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.0",
+    "file-loader": "^5.1.0",
+    "fs-extra": "^9.0.1",
+    "ignore-loader": "^0.1.2",
+    "less": "^3.11.0",
+    "less-loader": "^5.0.0",
+    "loader-utils": "^2.0.0",
+    "lodash": "^4.17.19",
+    "mini-css-extract-plugin": "0.9.0",
+    "node-sass": "^4.14.1",
+    "postcss-loader": "^3.0.0",
+    "react-hot-loader": "^4.12.0",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.1.0",
+    "url-loader": "^3.0.0",
+    "webpack": "^4.41.5",
+    "webpack-bundle-analyzer": "^3.5.0",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.10.0",
+    "webpack-dynamic-public-path": "^1.0.7",
+    "webpack-fix-style-only-entries": "^0.3.1",
+    "webpack-manifest-plugin": "^3.2.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/file-loader": "^4.2.0",
+    "@types/fs-extra": "^9.0.1",
+    "@types/loader-utils": "^2.0.1",
+    "@types/lodash": "^4.14.132",
+    "@types/mini-css-extract-plugin": "^0.9.0",
+    "@types/node": "^12.0.2",
+    "@types/webpack": "^4.41.0",
+    "@types/webpack-bundle-analyzer": "^2.13.2",
+    "@types/webpack-dev-middleware": "^3.7.0",
+    "@types/webpack-dev-server": "^3.10.0",
+    "@types/webpack-merge": "^4.1.5",
+    "typescript": "^4.3.2"
+  },
+  "files": [
+    "lib/**"
+  ]
+}

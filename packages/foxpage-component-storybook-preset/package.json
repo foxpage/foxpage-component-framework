@@ -1,0 +1,44 @@
+{
+  "name": "@foxpage/foxpage-component-storybook-preset",
+  "version": "0.2.6",
+  "description": "foxpage storybook preset",
+  "keywords": [
+    "foxpage",
+    "storybook",
+    "preset"
+  ],
+  "author": {
+    "name": "melody-yangjie",
+    "email": "mryangjiekilitor@gmail.com",
+    "url": "https://github.com/melodyJie"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "build:debug": "tsc --skipLibCheck --sourceMap --watch",
+    "prebuild": "rm -rf ./lib",
+    "prepublishOnly": "yarn build",
+    "test": "echo \"Error: no test specified\""
+  },
+  "dependencies": {
+    "@foxpage/foxpage-component-editor-storybook-addon": "^0.3.16",
+    "@foxpage/foxpage-component-webpack": "^0.1.21",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@storybook/react": "^6.2.9",
+    "typescript": "^4.3.3"
+  },
+  "files": [
+    "lib/**",
+    "preset.js",
+    "preset.d.ts",
+    "preview.js",
+    "preview.d.ts"
+  ]
+}
