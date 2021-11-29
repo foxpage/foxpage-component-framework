@@ -20,6 +20,11 @@
     "url": "https://github.com/melodyJie"
   },
   "license": "MIT",
+  "homepage": "https://github.com/foxfamily/foxpage-component-framework",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foxfamily/foxpage-component-framework"
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"

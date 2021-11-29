@@ -16,6 +16,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "homepage": "https://github.com/foxfamily/foxpage-component-framework",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foxfamily/foxpage-component-framework",
+    "directory": "packages/foxpage-component-babel-preset"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

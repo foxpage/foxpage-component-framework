@@ -18,6 +18,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "homepage": "https://github.com/foxfamily/foxpage-component-framework",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foxfamily/foxpage-component-framework",
+    "directory": "packages/eslint-config-foxpage-component"
+  },
   "main": "index.js",
   "dependencies": {
     "@types/eslint": "^6.8.1",

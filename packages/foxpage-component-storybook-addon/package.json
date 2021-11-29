@@ -17,6 +17,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "homepage": "https://github.com/foxfamily/foxpage-component-framework",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foxfamily/foxpage-component-framework",
+    "directory": "packages/foxpage-component-storybook-addon"
+  },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {

@@ -20,6 +20,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "homepage": "https://github.com/foxfamily/foxpage-component-framework",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foxfamily/foxpage-component-framework",
+    "directory": "packages/foxpage-component-editor-storybook-addon"
+  },
   "keywords": [
     "FoxPage",
     "Component",
