@@ -110,6 +110,9 @@ const ReactJSONEditor = (props = {}) => {
         if (propsRef.current.onBlur) {
           propsRef.current.onBlur();
         }
+        if (ctxRef.current.applyState) {
+          ctxRef.current.applyState();
+        }
       },
     };
 
