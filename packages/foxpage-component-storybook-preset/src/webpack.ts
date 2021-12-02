@@ -1,4 +1,5 @@
 import { Configuration, RuleSetRule, RuleSetUseItem, DefinePlugin } from 'webpack';
+import path from 'path';
 import { cloneDeep } from 'lodash';
 import { StyleLoaderOptions, getStyleLoaderRule, getScriptLoaderRule } from '@foxpage/foxpage-component-webpack';
 
@@ -46,6 +47,22 @@ function _fixEditorStyle(rule: RuleSetRule) {
   return fixRule;
 }
 
+const generateFoxpageAlias = () => {
+  const list = [
+    '@foxpage/foxpage-component-context',
+    '@foxpage/foxpage-component-editor-context',
+    '@foxpage/foxpage-component-storybook-addon',
+  ];
+  const foxpageAlias: Record<string, string> = {};
+  list.forEach((pkg: string) => {
+    const absPath = path.dirname(require.resolve(`${pkg}/package.json`));
+    if (absPath) {
+      foxpageAlias[pkg] = absPath;
+    }
+  });
+  return foxpageAlias;
+};
+
 export const configWebpack = ({ config, fixEditorStyle = true, babelConfigPath }: StoryBookConfigWebpackOption) => {
   const styleLoaderOpt: StyleLoaderOptions = {
     sourceMap: true,
@@ -55,9 +72,13 @@ export const configWebpack = ({ config, fixEditorStyle = true, babelConfigPath }
 
   const baseExtensions = (config.resolve && config.resolve.extensions) || [];
   const baseModuleRules = (config.module && config.module.rules) || [];
-
+  const foxpageAlias = generateFoxpageAlias();
   config.resolve = {
     ...(config.resolve || {}),
+    alias: {
+      ...(config.resolve?.alias || {}),
+      ...foxpageAlias,
+    },
     extensions: [...baseExtensions, '.ts', '.tsx'],
   };
 
