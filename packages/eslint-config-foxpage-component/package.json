@@ -1,6 +1,6 @@
 {
   "name": "@foxpage/eslint-config-foxpage-component",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "foxpage component eslint",
   "keywords": [
     "foxpage",

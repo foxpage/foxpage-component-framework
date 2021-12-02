@@ -1,6 +1,6 @@
 {
   "name": "@foxpage/foxpage-component-storybook-preset",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "foxpage storybook preset",
   "keywords": [
     "foxpage",
@@ -32,8 +32,8 @@
     "test": "echo \"Error: no test specified\""
   },
   "dependencies": {
-    "@foxpage/foxpage-component-editor-storybook-addon": "^0.3.16",
-    "@foxpage/foxpage-component-webpack": "^0.1.21",
+    "@foxpage/foxpage-component-editor-storybook-addon": "^0.3.17",
+    "@foxpage/foxpage-component-webpack": "^0.1.22",
     "lodash": "^4.17.21"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@foxpage/foxpage-component-jest-preset",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "foxpage component jest preset",
   "keywords": [
     "foxpage",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.8.0",
-    "@foxpage/foxpage-component-shared": "^0.1.10",
+    "@foxpage/foxpage-component-shared": "^0.1.11",
     "@jest/types": "^26.0.0",
     "@types/enzyme": "^3.10.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
