@@ -46,6 +46,7 @@ function callComponentInitialProps<C = Record<string, never>, T = Record<string,
 export const withFoxpageSsr = function <A = Record<string, any>, B = Record<string, any>>(
   ssrDecoratorOption: FoxpageSsrDecoratorOptions<A, B> = {},
 ) {
+  const { context = {}, ssrContext = {}, nodeData = {} } = ssrDecoratorOption;
   return function <C = A, T = B>(Component: FoxpageComponent<C, T>): React.MemoExoticComponent<React.FC<C>> {
     // console.debug(`[withFoxpageSsr] "${Component.displayName || 'UnKnow'}":`, ssrDecoratorOption);
     const Wrapper: React.FC<C> = props => {
@@ -57,7 +58,6 @@ export const withFoxpageSsr = function <A = Record<string, any>, B = Record<stri
       );
       const [error, setError] = useState<Error | null>(null);
       const fallbackRef = useRef(<div>foxpage ssr loading...</div>);
-      const { context = {}, ssrContext = {}, nodeData = {} } = ssrDecoratorOption;
       const callInitialProps = useCallback(
         async (ctxOptions: FoxpageComponentSsrContext<T>, nodeData: FoxpageComponentSsrNodeData<C>) => {
           if (initialPropsRef.current) {
