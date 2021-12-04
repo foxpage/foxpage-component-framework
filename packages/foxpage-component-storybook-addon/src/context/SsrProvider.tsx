@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useMemo, ProviderProps } from 'react';
+import _merge from 'lodash/merge';
 
 // foxpage ssr context data
 export interface FoxpageSsrContextType {
@@ -16,17 +17,8 @@ export const useFoxpageSsrContext = () => {
   return useContext(FoxpageSsrContext);
 };
 
-// 不做深度合并
 function mergeOuterLocalCtx(outerCtx: Record<string, any>, localCtx: Record<string, any>): FoxpageSsrContextType {
-  const resCtx = {
-    ...outerCtx,
-  };
-  Object.keys(localCtx).forEach(key => {
-    if (BaseSsrCtx[key]) {
-      console.warn(`overrides BaseSsrCtx, key: ${key}!`);
-    }
-    resCtx[key] = localCtx[key];
-  });
+  const resCtx = _merge({}, outerCtx, localCtx);
   return resCtx as FoxpageSsrContextType;
 }
 

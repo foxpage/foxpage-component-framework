@@ -1,4 +1,5 @@
 import React, { useMemo, ProviderProps } from 'react';
+import _merge from 'lodash/merge';
 
 import { FoxpageContextProvider, BaseCtx } from './context';
 import { FoxpageContextType, ExternalContextType } from './typing';
@@ -6,16 +7,16 @@ import { useFoxpageContext } from './hooks';
 
 // 不做深度合并
 function mergeOuterLocalCtx(outerCtx: Record<string, any>, localCtx: Record<string, any>): FoxpageContextType {
-  const resCtx = {
-    ...outerCtx,
+  const _localCtx = {
+    ...localCtx,
   };
-  Object.keys(localCtx).forEach(key => {
+  Object.keys(_localCtx).forEach(key => {
     if (BaseCtx[key]) {
       console.error("Can't overrides foxpage base context!");
-    } else {
-      resCtx[key] = localCtx[key];
+      delete _localCtx[key];
     }
   });
+  const resCtx = _merge({}, outerCtx, _localCtx);
   return resCtx as FoxpageContextType;
 }
 
