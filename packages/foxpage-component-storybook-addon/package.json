@@ -1,6 +1,6 @@
 {
   "name": "@foxpage/foxpage-component-storybook-addon",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "foxpage component storybook addon",
   "keywords": [
     "foxpage",
@@ -36,7 +36,7 @@
     "react": "^16.8.0"
   },
   "dependencies": {
-    "@foxpage/foxpage-component-context": "^0.1.8",
+    "@foxpage/foxpage-component-context": "^0.1.9",
     "@foxpage/foxpage-types": "^0.2.12",
     "lodash": "^4.17.21"
   },
