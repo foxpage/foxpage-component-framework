@@ -4,13 +4,14 @@ import { ADDON_DECORATOR_NAME } from '../constant';
 import { FoxpageSsrCtxBaseProvider } from '../context/SsrProvider';
 
 export interface FoxpageContextWrapperProps {
-  value: Record<string, any>;
+  context: Record<string, any>;
+  ssrContext: Record<string, any>;
 }
 
-const FoxpageContextWrapper: React.FC<FoxpageContextWrapperProps> = ({ value = {}, children }) => {
+const FoxpageContextWrapper: React.FC<FoxpageContextWrapperProps> = ({ context = {}, ssrContext = {}, children }) => {
   return (
-    <FoxpageSsrCtxBaseProvider value={{}}>
-      <FoxpageCtxBaseProvider value={value}>{children}</FoxpageCtxBaseProvider>
+    <FoxpageSsrCtxBaseProvider value={ssrContext}>
+      <FoxpageCtxBaseProvider value={context}>{children}</FoxpageCtxBaseProvider>
     </FoxpageSsrCtxBaseProvider>
   );
 };
