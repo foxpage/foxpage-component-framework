@@ -57,6 +57,7 @@ export const withFoxpageSsr = function <A = Record<string, any>, B = Record<stri
         undefined,
       );
       const [error, setError] = useState<Error | null>(null);
+      const unmountedRef = useRef(true);
       const fallbackRef = useRef(<div>foxpage ssr loading...</div>);
       const callInitialProps = useCallback(
         async (ctxOptions: FoxpageComponentSsrContext<T>, nodeData: FoxpageComponentSsrNodeData<C>) => {
@@ -64,6 +65,7 @@ export const withFoxpageSsr = function <A = Record<string, any>, B = Record<stri
             return Promise.resolve(initialPropsRef.current);
           }
           return callComponentInitialProps<C, T>(Component, ctxOptions, nodeData).then(initialProps => {
+            if (unmountedRef.current) return;
             if (typeof initialProps === 'object' && initialProps !== null) {
               setInitialProps(initialProps);
               console.debug(`[beforeNodeBuild return] "${Component.displayName || 'UnKnow'}":`, initialProps);
@@ -91,6 +93,7 @@ export const withFoxpageSsr = function <A = Record<string, any>, B = Record<stri
         } as FoxpageComponentSsrNodeData<C>;
         callInitialProps(mergedOptions, mergedNodeData)
           .then(() => {
+            if (unmountedRef.current) return;
             setError(null);
             setLoaded(true);
           })
@@ -103,9 +106,13 @@ export const withFoxpageSsr = function <A = Record<string, any>, B = Record<stri
         loadRef.current = load;
       }, [load]);
       useEffect(() => {
+        unmountedRef.current = false;
         // console.debug('[foxpage]: ssr wrapper, reset initialProps');
         setInitialProps(undefined);
         loadRef.current?.();
+        return () => {
+          unmountedRef.current = true;
+        };
       }, [props, ssrContext, context]);
       return loaded ? (
         <FoxpageCtxOverridesProvider value={context}>
