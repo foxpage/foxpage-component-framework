@@ -16,36 +16,3 @@ declare module 'webpack-dynamic-public-path' {
     constructor(opt?: any);
   }
 }
-
-declare module 'webpack-manifest-plugin' {
-  import webpack from 'webpack';
-  export interface WebpackManifestPluginOption {
-    publicPath?: null | string;
-    basePath?: string;
-    fileName?: string;
-    transformExtensions?: RegExp;
-    writeToFileEmit?: boolean;
-    seed?: string;
-    filter?: null;
-    map?: null;
-    sort?: null;
-    generate?: (
-      seed: Record<string, any>,
-      files: Array<{
-        path: string;
-        name: string | null;
-        isInitial: boolean;
-        isChunk: boolean;
-        chunk?: webpack.ChunkData;
-        isAsset: boolean;
-        isModuleAsset: boolean;
-      }>,
-      entryPoints: string[],
-    ) => any;
-    serialize?: (manifest: Record<string, string>) => string;
-  }
-
-  export default class WebpackManifestPlugin extends webpack.Plugin {
-    constructor(opt?: WebpackManifestPluginOption);
-  }
-}

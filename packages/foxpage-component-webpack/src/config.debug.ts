@@ -1,7 +1,7 @@
-import { webpackBaseConfig, WebpackBaseConfigOption } from './config.base';
 import merge from 'webpack-merge';
 import webpack, { Configuration } from 'webpack';
 import { join } from 'path';
+import { ModeFileNameMap, webpackBaseConfig, WebpackBaseConfigOption } from './config.base';
 
 export interface WebpackDebugOption extends WebpackBaseConfigOption {
   library: string;
@@ -9,13 +9,17 @@ export interface WebpackDebugOption extends WebpackBaseConfigOption {
 
 export const webpackDebugConfig = (context: string, opt: WebpackDebugOption): Configuration => {
   const { outputPath, outputFileName, library, useFileHash } = opt;
+  const fileName =
+    outputFileName ||
+    (useFileHash && `${ModeFileNameMap['debug']}.[contenthash].js`) ||
+    `${ModeFileNameMap['debug']}.js`;
   const debugConfig: webpack.Configuration = {
     devtool: false,
     mode: 'development',
     target: 'web',
     output: {
-      path: outputPath || join(context, 'dist/umd'),
-      filename: outputFileName || (useFileHash && 'development.[contenthash].js') || 'development.js',
+      path: outputPath || join(context, 'dist'),
+      filename: fileName,
       library: library,
       libraryTarget: 'umd',
       umdNamedDefine: true,

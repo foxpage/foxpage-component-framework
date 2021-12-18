@@ -1,9 +1,10 @@
 import FriendlyErrorsPlugin from '@soda/friendly-errors-webpack-plugin';
+import { join } from 'path';
 import webpack, { Plugin } from 'webpack';
+import WebpackAssetsManifest from 'webpack-assets-manifest';
 
 import { getStyleLoaderRule, getScriptLoaderRule } from './loader';
-import { BuildMode } from './types';
-
+import { BuildFoxpageMode } from './types';
 import { findEntry, FindEntryOptions } from './utils';
 import { getWebpackExternalConfig } from './external';
 
@@ -17,18 +18,28 @@ export interface WebpackBaseConfigOption extends FindEntryOptions {
   useStyleLoader?: boolean;
   useDefaultEntry?: boolean;
   fileSizeLimit?: number;
+  useManifest?: boolean;
   useFileHash?: boolean;
   useAssetsHash?: boolean;
   useProgressPlugin?: boolean;
 }
 
-export const webpackBaseConfig = (context: string, mode: BuildMode, opt: WebpackBaseConfigOption) => {
+export const ModeFileNameMap: Record<BuildFoxpageMode | 'prodStyle', string> = {
+  production: 'umd/production.min',
+  prodStyle: 'umd/style',
+  debug: 'umd/development',
+  node: 'cjs/production',
+  editor: 'umd/editor',
+};
+
+export const webpackBaseConfig = (context: string, mode: BuildFoxpageMode, opt: WebpackBaseConfigOption) => {
   const {
     publicPath,
     extractCSS = true,
     useStyleLoader = false,
     useDefaultEntry = true,
     fileSizeLimit: fileLimit = 8192,
+    useManifest,
     useFileHash,
     useAssetsHash,
     useProgressPlugin = false,
@@ -37,6 +48,12 @@ export const webpackBaseConfig = (context: string, mode: BuildMode, opt: Webpack
     const entryPath = findEntry(context, _opt);
     if (!entryPath) {
       throw new Error(`${context} can't find entry`);
+    }
+    const key = ModeFileNameMap[mode];
+    if (key) {
+      return {
+        [`${key}`]: entryPath,
+      };
     }
     return entryPath;
   };
@@ -98,6 +115,20 @@ export const webpackBaseConfig = (context: string, mode: BuildMode, opt: Webpack
         'process.env.NODE_ENV': JSON.stringify('production'),
         NODE_ENV: JSON.stringify('production'),
       }),
+      useManifest &&
+        new WebpackAssetsManifest({
+          output: join(context, `dist/manifest.json`),
+          merge: true,
+          customize(entry) {
+            if (entry.key === `${ModeFileNameMap['production']}.css`) {
+              return {
+                ...entry,
+                key: `${ModeFileNameMap['prodStyle']}.css`,
+              };
+            }
+            return entry;
+          },
+        }),
       useProgressPlugin && new webpack.ProgressPlugin(),
     ].filter(Boolean) as Plugin[],
   };

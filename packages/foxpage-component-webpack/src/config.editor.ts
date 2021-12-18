@@ -1,30 +1,36 @@
-import { webpackBaseConfig, WebpackBaseConfigOption } from './config.base';
 import merge from 'webpack-merge';
 import webpack, { Configuration } from 'webpack';
 import { join } from 'path';
 import { findEntry } from './utils';
+import { ModeFileNameMap, webpackBaseConfig, WebpackBaseConfigOption } from './config.base';
 
 export interface WebpackEditorOption extends WebpackBaseConfigOption {
   library: string;
 }
 
 export const webpackEditorConfig = (context: string, opt: WebpackEditorOption): Configuration => {
-  const entry = findEntry(context, {
+  const entryFile = findEntry(context, {
     indexFileNames: ['editor/index.ts', 'editor/index.js'],
   });
-  if (!entry) {
+  if (!entryFile) {
     throw new Error(`${context} can't find entry for editor`);
   }
+  const entry = {
+    [ModeFileNameMap['editor']]: entryFile,
+  };
   const { outputPath, outputFileName, library, useFileHash } = opt;
-
+  const fileName =
+    outputFileName ||
+    (useFileHash && `${ModeFileNameMap['editor']}.[contenthash].js`) ||
+    `${ModeFileNameMap['editor']}.js`;
   const editorConfig: webpack.Configuration = {
     mode: 'none',
     devtool: false,
-    entry: entry,
+    entry,
     target: 'web',
     output: {
-      path: outputPath || join(context, 'dist/umd'),
-      filename: outputFileName || (useFileHash && 'editor.[contenthash].js') || 'editor.js',
+      path: outputPath || join(context, 'dist'),
+      filename: fileName,
       library: `${library}_editor`,
       libraryTarget: 'umd',
       umdNamedDefine: true,

@@ -1,8 +1,8 @@
 import webpack, { Configuration } from 'webpack';
 import webpackMerge from 'webpack-merge';
-import { webpackBaseConfig, WebpackBaseConfigOption } from './config.base';
 import { clone } from 'lodash';
 import { join } from 'path';
+import { ModeFileNameMap, webpackBaseConfig, WebpackBaseConfigOption } from './config.base';
 
 export const webpackNodeConfig = (context: string, opt: WebpackBaseConfigOption): Configuration => {
   const baseConfig = webpackBaseConfig(context, 'node', opt);
@@ -15,14 +15,15 @@ export const webpackNodeConfig = (context: string, opt: WebpackBaseConfigOption)
     nodeBaseConfig.module.rules = [];
   }
   const { outputPath, outputFileName, useFileHash } = opt;
-
+  const fileName =
+    outputFileName || (useFileHash && `${ModeFileNameMap['node']}.[contenthash].js`) || `${ModeFileNameMap['node']}.js`;
   const nodeConfig: webpack.Configuration = {
     mode: 'production',
     target: 'node',
     devtool: false,
     output: {
-      path: outputPath || join(context, 'dist/cjs'),
-      filename: outputFileName || (useFileHash && 'production.[contenthash].js') || 'production.js',
+      path: outputPath || join(context, 'dist'),
+      filename: fileName,
       libraryTarget: 'commonjs2',
     },
     optimization: {
