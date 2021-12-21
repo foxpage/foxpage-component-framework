@@ -34,6 +34,10 @@ export class Logger {
     const f = prefix('Log') + format(msg, ...args);
     console.log(chalk[color](f));
   }
+  colorMsg(color: typeof Color, msg: string, ...args: any[]) {
+    const f = format(msg, ...args);
+    console.log(chalk[color](f));
+  }
 }
 
 export const logger = new Logger();
