@@ -81,7 +81,7 @@ export const webpackBaseConfig = (context: string, mode: BuildFoxpageMode, opt: 
               loader: 'file-loader',
               options: {
                 name: `assets/${useFileHash || useAssetsHash ? '[contenthash]' : '[name]'}.[ext]`,
-                publicPath,
+                publicPath: publicPath || '../',
               },
             },
           ],
@@ -94,7 +94,7 @@ export const webpackBaseConfig = (context: string, mode: BuildFoxpageMode, opt: 
               options: {
                 limit: useStyleLoader ? Number.MAX_SAFE_INTEGER : fileLimit,
                 name: `assets/${useFileHash || useAssetsHash ? '[contenthash]' : '[name]'}.[ext]`,
-                publicPath,
+                publicPath: publicPath || '../',
               },
             },
           ],
