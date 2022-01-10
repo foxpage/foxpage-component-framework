@@ -1,6 +1,6 @@
 {
   "name": "@foxpage/foxpage-component-editor-widgets",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "description": "FoxPage component editor widgets",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -37,7 +37,7 @@
     "react-dom": "^16.8.0"
   },
   "dependencies": {
-    "@foxpage/foxpage-component-editor-context": "^0.3.10",
+    "@foxpage/foxpage-component-editor-context": "^0.3.11",
     "ace-builds": "^1.4.13",
     "antd": "^4.16.8",
     "codemirror": "^5.43.0",

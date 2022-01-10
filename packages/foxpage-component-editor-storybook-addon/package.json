@@ -1,6 +1,6 @@
 {
   "name": "@foxpage/foxpage-component-editor-storybook-addon",
-  "version": "0.3.17",
+  "version": "0.3.18",
   "description": "FoxPage component editor storybook addon",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -37,8 +37,8 @@
     "react": "^16.8.0"
   },
   "dependencies": {
-    "@foxpage/foxpage-component-editor-context": "^0.3.10",
-    "@foxpage/foxpage-component-editor-widgets": "^0.3.15",
+    "@foxpage/foxpage-component-editor-context": "^0.3.11",
+    "@foxpage/foxpage-component-editor-widgets": "^0.3.16",
     "@storybook/addons": "^6.2.9",
     "@storybook/core-events": "^6.2.9",
     "object-path-immutable": "^4.1.1"

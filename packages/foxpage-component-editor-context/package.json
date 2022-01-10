@@ -1,6 +1,6 @@
 {
   "name": "@foxpage/foxpage-component-editor-context",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "description": "FoxPage component editor context",
   "main": "./lib/index.js",
   "types": "index.d.ts",

@@ -1,6 +1,6 @@
 {
   "name": "@foxpage/foxpage-component-webpack",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "description": "foxpage component webpack configs",
   "keywords": [
     "foxpage",
@@ -32,7 +32,7 @@
     "test": "echo \"Error: no test specified\""
   },
   "dependencies": {
-    "@foxpage/foxpage-component-shared": "^0.1.12",
+    "@foxpage/foxpage-component-shared": "^0.1.13",
     "@soda/friendly-errors-webpack-plugin": "^1.7.1",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.4.0",
