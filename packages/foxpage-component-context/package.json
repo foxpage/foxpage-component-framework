@@ -16,10 +16,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/foxfamily/foxpage-component-framework",
+  "homepage": "https://github.com/foxpage/foxpage-component-framework",
   "repository": {
     "type": "git",
-    "url": "https://github.com/foxfamily/foxpage-component-framework",
+    "url": "https://github.com/foxpage/foxpage-component-framework",
     "directory": "packages/foxpage-component-context"
   },
   "main": "lib/index.js",
