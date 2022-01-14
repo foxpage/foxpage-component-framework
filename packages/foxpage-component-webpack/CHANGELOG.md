@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/foxpage/foxpage-component-framework/compare/@foxpage/foxpage-component-webpack@0.1.26...@foxpage/foxpage-component-webpack@0.2.0) (2022-01-14)
+
+
+### Features
+
+* 🎸 suooprt umd&cjs build and analyze for webpack ([3d027a7](https://github.com/foxpage/foxpage-component-framework/commit/3d027a757842c0ad97384ab38622956146a0c1cc))
+
+
+
+
+
 ## [0.1.26](https://github.com/foxpage/foxpage-component-framework/compare/@foxpage/foxpage-component-webpack@0.1.25...@foxpage/foxpage-component-webpack@0.1.26) (2022-01-10)
 
 **Note:** Version bump only for package @foxpage/foxpage-component-webpack
