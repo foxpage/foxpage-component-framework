@@ -7,23 +7,23 @@ import { ModeFileNameMap } from './constants';
 
 export interface WebpackProductionOption extends WebpackBaseConfigOption {
   library: string;
-  analyze?: boolean;
 }
 
-export const webpackProdConfig = (context: string, opt: WebpackProductionOption): Configuration => {
-  const { outputPath, outputFileName, library, useFileHash, useStyleLoader = false, extractCSS = true } = opt;
+export const webpackUmdProdConfig = (context: string, opt: WebpackProductionOption): Configuration => {
+  const { outputPath, outputFileName, library, useFileHash } = opt;
   const fileName =
     outputFileName ||
-    (useFileHash && `${ModeFileNameMap['production']}.[contenthash].js`) ||
-    `${ModeFileNameMap['production']}.js`;
+    (useFileHash && `${ModeFileNameMap['umd_prod']}.[contenthash].js`) ||
+    `${ModeFileNameMap['umd_prod']}.js`;
   const styleFileName =
-    (useFileHash && `${ModeFileNameMap['prod_style']}.[contenthash].css`) || `${ModeFileNameMap['prod_style']}.css`;
+    (useFileHash && `${ModeFileNameMap['umd_prod_style']}.[contenthash].css`) ||
+    `${ModeFileNameMap['umd_prod_style']}.css`;
   const prodConfig: webpack.Configuration = {
     mode: 'production',
     target: 'web',
     devtool: false,
     output: {
-      path: outputPath || join(context, 'dist'),
+      path: outputPath || join(context, 'umd'),
       filename: fileName,
       library: library,
       libraryTarget: 'umd',
@@ -33,25 +33,23 @@ export const webpackProdConfig = (context: string, opt: WebpackProductionOption)
       minimize: true,
     },
     plugins: [
-      !useStyleLoader &&
-        extractCSS &&
-        new MiniCssExtractPlugin({
-          filename: styleFileName,
-        }),
+      new MiniCssExtractPlugin({
+        filename: styleFileName,
+      }),
     ].filter(Boolean) as webpack.Plugin[],
   };
   return merge.smart(
-    webpackBaseConfig(context, 'production', {
+    webpackBaseConfig(context, 'umd_prod', {
       extractCSS: true,
       useStyleLoader: false,
       ...opt,
       // force to set hack customize;
       manifest: {
         customize(entry) {
-          if (entry.key === `${ModeFileNameMap['production']}.css`) {
+          if (entry.key === `${ModeFileNameMap['umd_prod']}.css`) {
             return {
               ...entry,
-              key: `${ModeFileNameMap['prod_style']}.css`,
+              key: `${ModeFileNameMap['umd_prod_style']}.css`,
             };
           }
           return entry;

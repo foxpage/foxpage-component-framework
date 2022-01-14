@@ -1,48 +1,52 @@
 import FriendlyErrorsPlugin from '@soda/friendly-errors-webpack-plugin';
-import { join } from 'path';
+import path from 'path';
 import webpack, { Plugin } from 'webpack';
-import WebpackAssetsManifest from 'webpack-assets-manifest';
-
+import WebpackAssetsManifest, { Options as ManifestOptionsType } from 'webpack-assets-manifest';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { getStyleLoaderRule, getScriptLoaderRule } from './loader';
-import { BuildFoxpageMode } from './types';
+import { BuildMode } from './types';
 import { findEntry, FindEntryOptions } from './utils';
 import { getWebpackExternalConfig } from './external';
+import { ModeFileNameMap } from './constants';
 
 export interface WebpackBaseConfigOption extends FindEntryOptions {
-  library?: string;
-  version?: string;
-  outputPath?: string;
-  outputFileName?: string;
+  // use inside
   publicPath?: string;
   extractCSS?: boolean;
   useStyleLoader?: boolean;
   useDefaultEntry?: boolean;
   fileSizeLimit?: number;
   useManifest?: boolean;
+  manifest?: {
+    output?: string;
+    filename?: string;
+    customize?: ManifestOptionsType['customize'];
+  };
   useFileHash?: boolean;
   useAssetsHash?: boolean;
   useProgressPlugin?: boolean;
+
+  // use by other target mode
+  indexFileNames?: string[];
+  library?: string;
+  outputPath?: string;
+  outputFileName?: string;
+  analyze?: boolean;
 }
 
-export const ModeFileNameMap: Record<BuildFoxpageMode | 'prodStyle', string> = {
-  production: 'umd/production.min',
-  prodStyle: 'umd/style',
-  debug: 'umd/development',
-  node: 'cjs/production',
-  editor: 'umd/editor',
-};
-
-export const webpackBaseConfig = (context: string, mode: BuildFoxpageMode, opt: WebpackBaseConfigOption) => {
+export const webpackBaseConfig = (context: string, mode: BuildMode, opt: WebpackBaseConfigOption) => {
   const {
     publicPath,
     extractCSS = true,
     useStyleLoader = false,
     useDefaultEntry = true,
-    fileSizeLimit: fileLimit = 8192,
-    useManifest,
+    fileSizeLimit = 8192,
+    useManifest = false,
+    manifest,
     useFileHash,
     useAssetsHash,
     useProgressPlugin = false,
+    analyze = false,
   } = opt || {};
   const getEntry = (_opt: WebpackBaseConfigOption) => {
     const entryPath = findEntry(context, _opt);
@@ -57,6 +61,11 @@ export const webpackBaseConfig = (context: string, mode: BuildFoxpageMode, opt: 
     }
     return entryPath;
   };
+  const {
+    output: manifestOutput = '',
+    filename: manifestFileName = 'manifest.json',
+    customize: manifestCustomize,
+  } = manifest || {};
   const webpackConfig: webpack.Configuration = {
     entry: useDefaultEntry ? getEntry(opt) : undefined,
     context,
@@ -92,7 +101,7 @@ export const webpackBaseConfig = (context: string, mode: BuildFoxpageMode, opt: 
             {
               loader: 'url-loader',
               options: {
-                limit: useStyleLoader ? Number.MAX_SAFE_INTEGER : fileLimit,
+                limit: fileSizeLimit,
                 name: `assets/${useFileHash || useAssetsHash ? '[contenthash]' : '[name]'}.[ext]`,
                 publicPath: publicPath || '../',
               },
@@ -110,6 +119,7 @@ export const webpackBaseConfig = (context: string, mode: BuildFoxpageMode, opt: 
           messages: [`Compiler "${mode}" mode success`],
         },
       }),
+      analyze && (process.env.USE_BUNDLE_ANALYZER = 'true') && new BundleAnalyzerPlugin({ analyzerPort: 'auto' }),
       new webpack.DefinePlugin({
         __DEV__: JSON.stringify(false),
         'process.env.NODE_ENV': JSON.stringify('production'),
@@ -117,17 +127,9 @@ export const webpackBaseConfig = (context: string, mode: BuildFoxpageMode, opt: 
       }),
       useManifest &&
         new WebpackAssetsManifest({
-          output: join(context, `dist/manifest.json`),
+          output: manifestOutput ? path.join(manifestOutput, manifestFileName) : manifestFileName,
           merge: true,
-          customize(entry) {
-            if (entry.key === `${ModeFileNameMap['production']}.css`) {
-              return {
-                ...entry,
-                key: `${ModeFileNameMap['prodStyle']}.css`,
-              };
-            }
-            return entry;
-          },
+          customize: manifestCustomize,
         }),
       useProgressPlugin && new webpack.ProgressPlugin(),
     ].filter(Boolean) as Plugin[],

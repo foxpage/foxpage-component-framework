@@ -22,13 +22,10 @@ const BaseExternal: ExternalsObjectElement = {
   },
 };
 
-const NodeExternal: ExternalsObjectElement = {};
-
 const ProdExternal: ExternalsObjectElement = {};
 
-const ModeExternalMap: Partial<Record<BuildMode, ExternalsObjectElement>> = {
+const ModeExternalMap: Partial<Record<Partial<BuildMode>, ExternalsObjectElement>> = {
   production: ProdExternal,
-  node: NodeExternal,
 };
 
 export const getWebpackExternalConfig = (mode: BuildMode): ExternalsObjectElement => {

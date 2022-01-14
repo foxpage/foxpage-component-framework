@@ -4,12 +4,14 @@ import { clone } from 'lodash';
 import { join } from 'path';
 import { webpackBaseConfig, WebpackBaseConfigOption } from './config.base';
 import { ModeFileNameMap } from './constants';
+import { getScriptLoaderRule } from './loader';
 
-export const webpackNodeConfig = (context: string, opt: WebpackBaseConfigOption): Configuration => {
-  const baseConfig = webpackBaseConfig(context, 'node', opt);
+const buildMode = 'cjs_prod';
 
-  const jsRule = (baseConfig && baseConfig.module && baseConfig.module.rules[0]) as webpack.RuleSetRule;
+export const webpackCjsProdConfig = (context: string, opt: WebpackBaseConfigOption): Configuration => {
+  const baseConfig = webpackBaseConfig(context, buildMode, opt);
 
+  const jsRule = getScriptLoaderRule();
   // reset module rules
   const nodeBaseConfig: webpack.Configuration = clone(baseConfig);
   if (nodeBaseConfig.module) {
@@ -17,20 +19,19 @@ export const webpackNodeConfig = (context: string, opt: WebpackBaseConfigOption)
   }
   const { outputPath, outputFileName, useFileHash } = opt;
   const fileName =
-    outputFileName || (useFileHash && `${ModeFileNameMap['node']}.[contenthash].js`) || `${ModeFileNameMap['node']}.js`;
+    outputFileName ||
+    (useFileHash && `${ModeFileNameMap[buildMode]}.[contenthash].js`) ||
+    `${ModeFileNameMap[buildMode]}.js`;
   const nodeConfig: webpack.Configuration = {
     mode: 'production',
     target: 'node',
     devtool: false,
     output: {
-      path: outputPath || join(context, 'dist'),
+      path: outputPath || join(context, 'cjs'),
       filename: fileName,
       libraryTarget: 'commonjs2',
     },
-    optimization: {
-      minimize: false,
-      namedModules: true,
-    },
+    optimization: {},
     module: {
       rules: [
         jsRule,

@@ -4,12 +4,14 @@ import { clone } from 'lodash';
 import { join } from 'path';
 import { webpackBaseConfig, WebpackBaseConfigOption } from './config.base';
 import { ModeFileNameMap } from './constants';
+import { getScriptLoaderRule } from './loader';
 
-export const webpackNodeConfig = (context: string, opt: WebpackBaseConfigOption): Configuration => {
-  const baseConfig = webpackBaseConfig(context, 'node', opt);
+const buildMode = 'cjs_dev';
 
-  const jsRule = (baseConfig && baseConfig.module && baseConfig.module.rules[0]) as webpack.RuleSetRule;
+export const webpackCjsDevConfig = (context: string, opt: WebpackBaseConfigOption): Configuration => {
+  const baseConfig = webpackBaseConfig(context, buildMode, opt);
 
+  const jsRule = getScriptLoaderRule();
   // reset module rules
   const nodeBaseConfig: webpack.Configuration = clone(baseConfig);
   if (nodeBaseConfig.module) {
@@ -17,20 +19,26 @@ export const webpackNodeConfig = (context: string, opt: WebpackBaseConfigOption)
   }
   const { outputPath, outputFileName, useFileHash } = opt;
   const fileName =
-    outputFileName || (useFileHash && `${ModeFileNameMap['node']}.[contenthash].js`) || `${ModeFileNameMap['node']}.js`;
+    outputFileName ||
+    (useFileHash && `${ModeFileNameMap[buildMode]}.[contenthash].js`) ||
+    `${ModeFileNameMap[buildMode]}.js`;
   const nodeConfig: webpack.Configuration = {
-    mode: 'production',
+    mode: 'development',
     target: 'node',
     devtool: false,
     output: {
-      path: outputPath || join(context, 'dist'),
+      path: outputPath || join(context, 'cjs'),
       filename: fileName,
       libraryTarget: 'commonjs2',
     },
-    optimization: {
-      minimize: false,
-      namedModules: true,
-    },
+    optimization: {},
+    plugins: [
+      new webpack.DefinePlugin({
+        __DEV__: JSON.stringify(true),
+        'process.env.NODE_ENV': JSON.stringify('development'),
+        NODE_ENV: JSON.stringify('development'),
+      }),
+    ].filter(Boolean) as webpack.Plugin[],
     module: {
       rules: [
         jsRule,

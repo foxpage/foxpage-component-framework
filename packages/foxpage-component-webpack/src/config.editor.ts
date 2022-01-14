@@ -2,8 +2,8 @@ import merge from 'webpack-merge';
 import webpack, { Configuration } from 'webpack';
 import { join } from 'path';
 import { findEntry } from './utils';
-import { ModeFileNameMap, webpackBaseConfig, WebpackBaseConfigOption } from './config.base';
-
+import { webpackBaseConfig, WebpackBaseConfigOption } from './config.base';
+import { ModeFileNameMap } from './constants';
 export interface WebpackEditorOption extends WebpackBaseConfigOption {
   library: string;
 }
@@ -43,6 +43,7 @@ export const webpackEditorConfig = (context: string, opt: WebpackEditorOption): 
   return merge(
     webpackBaseConfig(context, 'editor', {
       ...opt,
+      // debug: force to set
       extractCSS: false,
       useStyleLoader: true,
       useDefaultEntry: false,

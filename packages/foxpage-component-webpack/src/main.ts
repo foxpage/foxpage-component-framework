@@ -6,6 +6,11 @@ import { webpackNodeConfig } from './config.node';
 import { webpackDebugConfig } from './config.debug';
 import { webpackEditorConfig } from './config.editor';
 import { webpackStyleConfig } from './config.style';
+import { webpackUmdProdConfig } from './config.umd.prod';
+import { webpackUmdDevConfig } from './config.umd.dev';
+import { webpackCjsProdConfig } from './config.cjs.prod';
+import { webpackCjsDevConfig } from './config.cjs.dev';
+
 import { BuildMode } from './types';
 
 const WEBPACK_CONFIG_MAP: Record<
@@ -17,6 +22,10 @@ const WEBPACK_CONFIG_MAP: Record<
   node: webpackNodeConfig as any,
   editor: webpackEditorConfig as any,
   style: webpackStyleConfig as any,
+  umd_prod: webpackUmdProdConfig as any,
+  umd_dev: webpackUmdDevConfig as any,
+  cjs_prod: webpackCjsProdConfig as any,
+  cjs_dev: webpackCjsDevConfig as any,
 };
 
 export const getModeWebpackConfig = (
