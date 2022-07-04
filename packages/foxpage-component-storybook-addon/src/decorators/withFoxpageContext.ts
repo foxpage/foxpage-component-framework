@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import { createElement, ReactNode } from 'react';
 import { makeDecorator } from '@storybook/addons';
 import { ExternalContextType } from '@foxpage/foxpage-component-context';
 import Wrapper from '../components/FoxpageContextWrapper';
@@ -27,7 +27,7 @@ export const makeFoxpageContextDecorator = (_globalOptions: Partial<FoxpageConte
       return createElement(
         Wrapper,
         { context: parameters.context || {}, ssrContext: parameters.ssrContext || {} },
-        getStory(context),
+        getStory(context) as ReactNode,
       );
     },
   });

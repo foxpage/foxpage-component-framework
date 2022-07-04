@@ -7,7 +7,7 @@
     "boot": "lerna bootstrap",
     "start:editor": "start-storybook --port 49521",
     "release:v": "lerna version",
-    "release:p": "yarn boot && lerna publish from-git",
+    "release:p": "yarn boot && lerna publish from-package",
     "release": "yarn release:v && yarn release:p",
     "commit": "git-cz",
     "lint": "eslint --cache --cache-location=.cache/eslint --ext .ts,.tsx,.js,.jsx --report-unused-disable-directives packages/",
@@ -93,5 +93,8 @@
     "react-dom": "^16.8.0",
     "standard-version": "^9.3.0",
     "ts-jest": "^26.3.0"
+  },
+  "resolutions": {
+    "@types/react": "^16.14.11"
   }
 }

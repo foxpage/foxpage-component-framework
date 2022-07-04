@@ -62,6 +62,7 @@ export const getStyleLoaderRule = (
           loader: require.resolve('sass-loader'),
           options: {
             sourceMap,
+            implementation: require('sass'),
           },
         });
       break;

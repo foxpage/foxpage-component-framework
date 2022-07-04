@@ -69,7 +69,7 @@ export const createJestConfig = (opt: CreateJestConfigOptions = {}) => {
   };
 
   if (mapLocalPackages) {
-    Object.assign(config.moduleNameMapper, findLocalPackageMapper());
+    Object.assign(config.moduleNameMapper || {}, findLocalPackageMapper());
   }
 
   return config;
