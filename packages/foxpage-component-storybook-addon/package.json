@@ -1,6 +1,6 @@
 {
   "name": "@foxpage/foxpage-component-storybook-addon",
-  "version": "0.2.11",
+  "version": "0.2.12-beta.0",
   "description": "foxpage component storybook addon",
   "keywords": [
     "foxpage",
