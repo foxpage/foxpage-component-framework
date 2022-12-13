@@ -14,6 +14,7 @@ export const webpackDebugConfig = (context: string, opt: WebpackDebugOption): Co
     outputFileName ||
     (useFileHash && `${ModeFileNameMap['debug']}.[contenthash].js`) ||
     `${ModeFileNameMap['debug']}.js`;
+  const chunkFilename = (useFileHash && `chunk-development-[name].[contenthash].js`) || `chunk-development-[name].js`;
   const debugConfig: webpack.Configuration = {
     devtool: false,
     mode: 'development',
@@ -21,6 +22,7 @@ export const webpackDebugConfig = (context: string, opt: WebpackDebugOption): Co
     output: {
       path: outputPath || join(context, 'dist'),
       filename: fileName,
+      chunkFilename: `umd/${chunkFilename}`,
       library: library,
       libraryTarget: 'umd',
       umdNamedDefine: true,
@@ -45,6 +47,17 @@ export const webpackDebugConfig = (context: string, opt: WebpackDebugOption): Co
       // debug: force to set
       extractCSS: false,
       useStyleLoader: false,
+      manifest: {
+        customize(entry) {
+          if (!entry.key?.startsWith?.('umd/') && !entry.key?.startsWith?.('assets/')) {
+            return {
+              ...entry,
+              key: `umd/chunk-development-${entry.key}`,
+            };
+          }
+          return entry;
+        },
+      },
     }) as any,
     debugConfig as any,
   ) as Configuration;

@@ -18,6 +18,7 @@ export const webpackProdConfig = (context: string, opt: WebpackProductionOption)
     `${ModeFileNameMap['production']}.js`;
   const styleFileName =
     (useFileHash && `${ModeFileNameMap['prod_style']}.[contenthash].css`) || `${ModeFileNameMap['prod_style']}.css`;
+  const chunkFilename = (useFileHash && `chunk-production-[name].[contenthash].js`) || `chunk-production-[name].js`;
   const prodConfig: webpack.Configuration = {
     mode: 'production',
     target: 'web',
@@ -25,6 +26,7 @@ export const webpackProdConfig = (context: string, opt: WebpackProductionOption)
     output: {
       path: outputPath || join(context, 'dist'),
       filename: fileName,
+      chunkFilename: `umd/${chunkFilename}`,
       library: library,
       libraryTarget: 'umd',
       umdNamedDefine: true,
@@ -48,13 +50,18 @@ export const webpackProdConfig = (context: string, opt: WebpackProductionOption)
       // force to set hack customize;
       manifest: {
         customize(entry) {
-          if (entry.key === `${ModeFileNameMap['production']}.css`) {
-            return {
-              ...entry,
-              key: `${ModeFileNameMap['prod_style']}.css`,
-            };
+          let key = entry.key;
+          if (key === `${ModeFileNameMap['production']}.css`) {
+            key = `${ModeFileNameMap['prod_style']}.css`;
           }
-          return entry;
+          // handle chunk key
+          if (!key?.startsWith?.('umd/') && !key?.startsWith?.('assets/')) {
+            key = `umd/chunk-production-${entry.key}`;
+          }
+          return {
+            ...entry,
+            key,
+          };
         },
       },
     }) as any,

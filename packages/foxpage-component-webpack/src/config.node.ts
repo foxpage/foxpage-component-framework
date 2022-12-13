@@ -6,7 +6,20 @@ import { webpackBaseConfig, WebpackBaseConfigOption } from './config.base';
 import { ModeFileNameMap } from './constants';
 
 export const webpackNodeConfig = (context: string, opt: WebpackBaseConfigOption): Configuration => {
-  const baseConfig = webpackBaseConfig(context, 'node', opt);
+  const baseConfig = webpackBaseConfig(context, 'node', {
+    ...opt,
+    manifest: {
+      customize(entry) {
+        if (!entry.key?.startsWith?.('cjs')) {
+          return {
+            ...entry,
+            key: `cjs/chunk-production-${entry.key}`,
+          };
+        }
+        return entry;
+      },
+    },
+  });
 
   const jsRule = (baseConfig && baseConfig.module && baseConfig.module.rules[0]) as webpack.RuleSetRule;
 
@@ -18,6 +31,7 @@ export const webpackNodeConfig = (context: string, opt: WebpackBaseConfigOption)
   const { outputPath, outputFileName, useFileHash } = opt;
   const fileName =
     outputFileName || (useFileHash && `${ModeFileNameMap['node']}.[contenthash].js`) || `${ModeFileNameMap['node']}.js`;
+  const chunkFilename = (useFileHash && `chunk-production-[name].[contenthash].js`) || `chunk-production-[name].js`;
   const nodeConfig: webpack.Configuration = {
     mode: 'production',
     target: 'node',
@@ -25,6 +39,7 @@ export const webpackNodeConfig = (context: string, opt: WebpackBaseConfigOption)
     output: {
       path: outputPath || join(context, 'dist'),
       filename: fileName,
+      chunkFilename: `cjs/${chunkFilename}`,
       libraryTarget: 'commonjs2',
     },
     optimization: {
@@ -41,5 +56,5 @@ export const webpackNodeConfig = (context: string, opt: WebpackBaseConfigOption)
       ],
     },
   };
-  return webpackMerge(nodeBaseConfig as any, nodeConfig as any) as Configuration;
+  return webpackMerge(nodeBaseConfig as any, nodeConfig as any, {}) as Configuration;
 };
