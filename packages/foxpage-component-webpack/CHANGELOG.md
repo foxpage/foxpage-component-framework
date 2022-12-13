@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://github.com/foxpage/foxpage-component-framework/compare/@foxpage/foxpage-component-webpack@0.2.1...@foxpage/foxpage-component-webpack@0.2.2) (2022-12-13)
+
+
+### Bug Fixes
+
+* refresh latest ([f67eb57](https://github.com/foxpage/foxpage-component-framework/commit/f67eb5718495522b1fdc4b8becc504f7f7ffe946))
+
+
+
+
+
 ## [0.2.1](https://github.com/foxpage/foxpage-component-framework/compare/@foxpage/foxpage-component-webpack@0.2.1-beta.0...@foxpage/foxpage-component-webpack@0.2.1) (2022-07-04)
 
 **Note:** Version bump only for package @foxpage/foxpage-component-webpack

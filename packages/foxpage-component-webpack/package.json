@@ -1,7 +1,7 @@
 {
   "name": "@foxpage/foxpage-component-webpack",
-  "version": "0.2.1",
-  "description": "foxpage component webpack configs",
+  "version": "0.2.2",
+  "description": "foxpage component webpack config",
   "keywords": [
     "foxpage",
     "component",
