@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.15-alpha.0](https://github.com/foxpage/foxpage-component-framework/compare/@foxpage/foxpage-component-storybook-preset@0.2.14...@foxpage/foxpage-component-storybook-preset@0.2.15-alpha.0) (2022-12-13)
+
+**Note:** Version bump only for package @foxpage/foxpage-component-storybook-preset
+
+
+
+
+
 ## [0.2.14](https://github.com/foxpage/foxpage-component-framework/compare/@foxpage/foxpage-component-storybook-preset@0.2.14-beta.0...@foxpage/foxpage-component-storybook-preset@0.2.14) (2022-07-04)
 
 **Note:** Version bump only for package @foxpage/foxpage-component-storybook-preset
